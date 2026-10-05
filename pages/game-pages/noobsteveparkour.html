@@ -100,7 +100,7 @@ function goFullscreen() {
           // dotgui-panic: global panic key, guards typing
           document.addEventListener('keydown', function(e) {
             var t = e.target;
-            if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT' || t.isContentEditable)) return;
+            if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
             var key = '';
             try { key = localStorage.getItem('dotgui_panic_key') || 'k'; } catch (err) { key = 'k'; }
             if ((e.key || '').toLowerCase() !== (key || '').toLowerCase() || !key) return;
