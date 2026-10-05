@@ -260,27 +260,75 @@ p {
 
 .fav-star {
   position: absolute;
-  top: 2px;
-  right: 2px;
-  width: 28px;
-  height: 28px;
-  line-height: 28px;
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.55);
-  color: #667;
-  font-size: 16px;
-  opacity: 0.55;
+  top: 4px;
+  right: 4px;
+  width: 34px;
+  height: 34px;
+  line-height: 30px;
+  text-align: center;
+  border-radius: 8px;
+  background: rgba(1, 15, 21, 0.45);
+  backdrop-filter: blur(8px) saturate(140%);
+  -webkit-backdrop-filter: blur(8px) saturate(140%);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  color: #5f7d8c;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 19px;
+  opacity: 1;
   cursor: pointer;
   user-select: none;
+  transition: transform 0.15s, color 0.15s, box-shadow 0.15s;
+}
+
+.fav-star:hover {
+  transform: scale(1.15);
 }
 
 .fav-star.on {
   color: #ffd700;
   opacity: 1;
+  border-color: rgba(255, 215, 0, 0.8);
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+  text-shadow: 0 0 6px rgba(255, 215, 0, 0.9);
 }
 
 #game-buttons .button:hover .fav-star {
   opacity: 1;
+}
+
+body[data-theme="light"] .fav-star {
+  background: rgba(255, 255, 255, 0.55);
+  color: #6e7a84;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+body[data-theme="light"] .fav-star.on {
+  color: #b8860b;
+  border-color: rgba(184, 134, 11, 0.8);
+  box-shadow: 0 0 10px rgba(184, 134, 11, 0.5);
+  text-shadow: none;
+}
+
+body[data-theme="fall"] .fav-star {
+  background: rgba(28, 14, 4, 0.5);
+  color: #a0764a;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+body[data-theme="primordial"] .fav-star {
+  background: rgba(0, 0, 0, 0.55);
+  color: #8a8a8a;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+body[data-theme="fall"] .fav-star.on {
+  color: #ffa14d;
+  border-color: rgba(255, 161, 77, 0.9);
+  box-shadow: 0 0 10px rgba(255, 161, 77, 0.7);
+  text-shadow: 0 0 6px rgba(255, 161, 77, 0.9);
 }
 
 #recent-buttons {
@@ -446,6 +494,9 @@ body[data-theme="primordial"] nav img {
 
 body[data-theme="primordial"] .fav-star.on {
   color: #fff;
+  border-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+  text-shadow: 0 0 6px #fff;
 }
 
 body[data-theme="primordial"] .site-logo-img {
