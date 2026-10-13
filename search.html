@@ -349,36 +349,25 @@
                     (await navigator.serviceWorker.ready).active;
 
                 // STEP 3: Connect a transport to a wisp server.
-                // Primary: first-party worker, fallbacks: Mercury, Anura.
+                // First-party worker only.
                 let transport = null;
-                const wisps = ["wss://wisp-server-workers.dotlyhiyou.workers.dev/", "wss://wisp.mercurywork.shop/", "wss://anura.pro/"];
+                const WISP_URL = "wss://wisp-server-workers.dotlyhiyou.workers.dev/";
                 try {
-                    const last = localStorage.getItem("dotgui_wisp_v2");
-                    const at = wisps.indexOf(last);
-                    if (at > 0) { wisps.splice(at, 1); wisps.unshift(last); }
-                } catch (e) {}
-                let lastErr = null;
-                for (let i = 0; i < wisps.length; i++) {
-                    try {
-                        const t = new EpoxyTransport({ wisp: wisps[i] });
-                        const attempt = t.init();
-                        attempt.catch(function() {});
-                        await Promise.race([
-                            attempt,
-                            new Promise(function(_, rej) {
-                                setTimeout(function() { rej(new Error("wisp timeout: " + wisps[i])); }, 10000);
-                            })
-                        ]);
-                        transport = t;
-                        try { localStorage.setItem("dotgui_wisp_v2", wisps[i]); } catch (e) {}
-                        break;
-                    } catch (e) {
-                        lastErr = e;
-                        console.warn("Wisp failed: " + wisps[i], e);
-                    }
+                    const t = new EpoxyTransport({ wisp: WISP_URL });
+                    const attempt = t.init();
+                    attempt.catch(function() {});
+                    await Promise.race([
+                        attempt,
+                        new Promise(function(_, rej) {
+                            setTimeout(function() { rej(new Error("wisp timeout: " + WISP_URL)); }, 10000);
+                        })
+                    ]);
+                    transport = t;
+                } catch (e) {
+                    console.warn("Wisp failed: " + WISP_URL, e);
                 }
                 if (!transport) {
-                    console.error(lastErr || new Error("All wisps failed"));
+                    console.error(new Error("Wisp failed: " + WISP_URL));
                     showBlocked();
                     return;
                 }
